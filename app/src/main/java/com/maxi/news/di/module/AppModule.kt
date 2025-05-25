@@ -3,7 +3,11 @@ package com.maxi.news.di.module
 import android.content.Context
 import com.maxi.news.data.remote.AuthorizationInterceptor
 import com.maxi.news.data.remote.NetworkService
+import com.maxi.news.data.remote.PreferencesNetworkService
+import com.maxi.news.di.BaseHttpClient
 import com.maxi.news.di.BaseUrl
+import com.maxi.news.di.PreferencesBaseUrl
+import com.maxi.news.di.PreferencesHttpClient
 import com.maxi.news.utils.DefaultDispatcherProvider
 import com.maxi.news.utils.DefaultNetworkConnectionHelper
 import com.maxi.news.utils.DispatcherProvider
@@ -27,16 +31,29 @@ class AppModule {
     fun provideBaseUrl(): String =
         "https://newsapi.org/v2/"
 
+    @PreferencesBaseUrl
+    @Provides
+    fun providePreferencesBaseUrl(): String =
+        "https://api.jsonbin.io/v3/b/"
+
     @Provides
     @Singleton
     fun provideAuthorizationInterceptor(): AuthorizationInterceptor =
         AuthorizationInterceptor()
 
+    @BaseHttpClient
     @Provides
     @Singleton
-    fun provideHttpClient(authorizationInterceptor: AuthorizationInterceptor): OkHttpClient =
+    fun provideBaseHttpClient(authorizationInterceptor: AuthorizationInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(authorizationInterceptor)
+            .build()
+
+    @PreferencesHttpClient
+    @Provides
+    @Singleton
+    fun providePreferencesClient(): OkHttpClient =
+        OkHttpClient.Builder()
             .build()
 
     @Provides
@@ -46,9 +63,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNetworkService(
+    fun provideBaseNetworkService(
         @BaseUrl baseUrl: String,
-        httpClient: OkHttpClient,
+        @BaseHttpClient httpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
     ): NetworkService =
         Retrofit
@@ -58,6 +75,21 @@ class AppModule {
             .addConverterFactory(converterFactory)
             .build()
             .create(NetworkService::class.java)
+
+    @Provides
+    @Singleton
+    fun providePreferencesNetworkService(
+        @PreferencesBaseUrl baseUrl: String,
+        @PreferencesHttpClient httpClient: OkHttpClient,
+        converterFactory: GsonConverterFactory
+    ): PreferencesNetworkService =
+        Retrofit
+            .Builder()
+            .baseUrl(baseUrl)
+            .client(httpClient)
+            .addConverterFactory(converterFactory)
+            .build()
+            .create(PreferencesNetworkService::class.java)
 
     @Provides
     @Singleton
