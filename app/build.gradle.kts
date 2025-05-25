@@ -26,6 +26,8 @@ android {
         rootProject.file("local.properties").reader().use(::load)
     }
     val apiKey = properties["API_KEY"] as String
+    val countriesBinId = properties["COUNTRIES_BIN_ID"] as String
+    val languagesBinId = properties["LANGUAGES_BIN_ID"] as String
 
     buildTypes {
         release {
@@ -35,6 +37,8 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "API_KEY", "\"$apiKey\"")
+            buildConfigField("String", "COUNTRIES_BIN_ID", "\"$countriesBinId\"")
+            buildConfigField("String", "LANGUAGES_BIN_ID", "\"$languagesBinId\"")
         }
         debug {
             isMinifyEnabled = false
@@ -43,6 +47,8 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "API_KEY", "\"$apiKey\"")
+            buildConfigField("String", "COUNTRIES_BIN_ID", "\"$countriesBinId\"")
+            buildConfigField("String", "LANGUAGES_BIN_ID", "\"$languagesBinId\"")
         }
     }
     compileOptions {
