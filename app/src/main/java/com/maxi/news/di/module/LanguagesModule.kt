@@ -1,8 +1,8 @@
 package com.maxi.news.di.module
 
 import com.maxi.news.data.remote.PreferencesNetworkService
-import com.maxi.news.data.repository.CountriesRepositoryImpl
-import com.maxi.news.domain.repository.CountriesRepository
+import com.maxi.news.data.repository.LanguagesRepositoryImpl
+import com.maxi.news.domain.repository.LanguagesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,11 +10,11 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class CountriesModule {
+class LanguagesModule {
 
     @Provides
-    fun provideCountriesRepository(
+    fun provideLanguagesRepository(
         networkService: PreferencesNetworkService
-    ): CountriesRepository =
-        CountriesRepositoryImpl(networkService)
+    ): LanguagesRepository =
+        LanguagesRepositoryImpl(networkService)
 }
