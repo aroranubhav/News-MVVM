@@ -12,9 +12,9 @@ class HeadlinesRepositoryImpl @Inject constructor(
     private val networkService: NetworkService
 ) : HeadlinesRepository {
 
-    override suspend fun getHeadlines(): Flow<List<Article>> {
+    override suspend fun getHeadlines(source: String): Flow<List<Article>> {
         return flow {
-            emit(networkService.getHeadlines())
+            emit(networkService.getHeadlines(source = source))
         }.map {
             it.articles
         }

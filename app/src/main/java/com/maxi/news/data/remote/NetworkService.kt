@@ -10,6 +10,7 @@ interface NetworkService {
 
     @GET("top-headlines")
     suspend fun getHeadlines(
+        @Query("sources") source: String = "",
         @Query("language") language: String = DEFAULT_LANGUAGE
     ): HeadlineResponse
 

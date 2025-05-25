@@ -9,6 +9,6 @@ class HeadlinesUseCase @Inject constructor(
     private val repository: HeadlinesRepository
 ) {
 
-    suspend operator fun invoke(): Flow<List<Article>> =
-        repository.getHeadlines()
+    suspend operator fun invoke(source: String): Flow<List<Article>> =
+        repository.getHeadlines(source)
 }
