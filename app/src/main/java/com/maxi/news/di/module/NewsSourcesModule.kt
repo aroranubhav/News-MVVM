@@ -6,10 +6,10 @@ import com.maxi.news.domain.repository.NewsSourcesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(ViewModelScoped::class)
+@InstallIn(ViewModelComponent::class)
 class NewsSourcesModule {
 
     @Provides
