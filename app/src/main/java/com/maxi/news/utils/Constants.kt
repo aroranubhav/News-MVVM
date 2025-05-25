@@ -10,4 +10,10 @@ object Constants {
     const val COUNTRIES = "Countries"
     const val LANGUAGES = "Languages"
     const val SEARCH = "Search"
+    const val OPTIONS_SCREEN_PATH = "options"
+    const val HEADLINES_PATH = "top-headlines"
+    const val NEWS_SOURCES_PATH = "news-source"
+    const val COUNTRIES_PATH = "countries"
+    const val LANGUAGES_PATH = "languages"
+    const val SEARCH_PATH = "search"
 }
